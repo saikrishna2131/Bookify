@@ -1,0 +1,105 @@
+<!-- <% layout("/listings/layouts/boilerplate.ejs") %>
+
+<div class="container mt-4">
+  <h2>Book: <%= listing.title %></h2>
+  <form method="POST" action="/listings/<%= listing._id %>/book">
+    <div class="mb-3">
+      <label for="startDate" class="form-label">Start Date</label>
+      <input type="date" class="form-control" name="startDate" required />
+    </div>
+    <div class="mb-3">
+      <label for="endDate" class="form-label">End Date</label>
+      <input type="date" class="form-control" name="endDate" required />
+    </div>
+    <button type="submit" class="btn btn-success">Confirm Booking</button>
+  </form>
+</div> -->
+
+
+
+<% layout("/listings/layouts/boilerplate.ejs") %>
+
+<div class="container my-5 p-4 shadow rounded bg-light" style="max-width: 600px;">
+  <h2 class="text-center mb-4 text-success">
+    Book Your Stay at <span class="text-dark"><%= listing.title %></span>
+  </h2>
+
+  <form method="POST" action="/listings/<%= listing._id %>/book">
+    <!-- USER DETAILS -->
+    <div class="mb-3">
+      <label for="name" class="form-label fw-semibold">Full Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        value="<%= currUser ? currUser.username : '' %>"
+        placeholder="Enter your full name"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label fw-semibold">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        value="<%= currUser ? currUser.email : '' %>"
+        placeholder="Enter your email"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label fw-semibold">Phone Number</label>
+      <input
+        type="tel"
+        class="form-control"
+        id="phone"
+        name="phone"
+        placeholder="Enter your phone number"
+        pattern="[0-9]{10}"
+        required
+      />
+      <div class="form-text">Format: 10-digit number</div>
+    </div>
+
+   <!-- BOOKING DETAILS  -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="startDate" class="form-label fw-semibold">Start Date</label>
+        <input type="date" class="form-control" name="startDate" required />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="endDate" class="form-label fw-semibold">End Date</label>
+        <input type="date" class="form-control" name="endDate" required />
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="guests" class="form-label fw-semibold">Number of Guests</label>
+      <input
+        type="number"
+        class="form-control"
+        id="guests"
+        name="guests"
+        min="1"
+        value="1"
+        required
+      />
+    </div>
+
+    <!-- PRICE DISPLAY -->
+    <div class="alert alert-info text-center mt-4">
+      <strong>Price per Night:</strong> ₹<%= listing.price.toLocaleString("en-IN") %>
+    </div>
+
+    <div class="d-grid mt-4">
+      <button type="submit" class="btn btn-success btn-lg">
+        Proceed to Payment
+      </button>
+    </div>
+  </form>
+</div>
